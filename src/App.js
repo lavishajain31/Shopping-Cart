@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Product = ({ name, onAddToCart }) => {
+const Product = ({ name, onAddToCart,cart,setCart }) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncrement = () => {
@@ -9,7 +9,12 @@ const Product = ({ name, onAddToCart }) => {
   };
 
   const handleDecrement = () => {
-    if (quantity > 0) {
+    if (quantity === 1) {
+      const updatedCart = cart.filter(item => item.name !== name);
+      setQuantity(0);
+      setCart(updatedCart);
+    }
+    else if (quantity > 0) {
       setQuantity(quantity - 1);
       onAddToCart(name, quantity - 1);
     }
